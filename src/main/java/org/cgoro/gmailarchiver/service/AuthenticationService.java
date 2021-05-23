@@ -1,4 +1,4 @@
-package org.cgoro.gmailarchiver.gmail;
+package org.cgoro.gmailarchiver.service;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
