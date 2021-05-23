@@ -14,11 +14,5 @@ Camel integration and the Google mail component consists the core the applicatio
 
 ## References
 * https://developers.google.com/gmail/api/quickstart/js
-* https://medium.com/automationmaster/getting-google-oauth-access-token-using-google-apis-18b2ba11a11a
+* https://developers.google.com/workspace/guides/create-credentials
 * https://camel.apache.org/components/latest/google-mail-component.html#_api_parameters_7_apis
-
-## How to obtain a token (until automatic solution)
-* Follow the steps in the quickstart guide above
-* Open Network in the browser
-* Sign out & Authorize
-* The access token can be found in the response of https://accounts.google.com/o/oauth2/iframerpc 
