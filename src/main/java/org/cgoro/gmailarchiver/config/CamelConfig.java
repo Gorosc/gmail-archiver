@@ -4,8 +4,8 @@ import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.google.mail.GoogleMailComponent;
-import org.apache.camel.component.google.mail.GoogleMailConfiguration;
+import org.apache.camel.component.google.mail.stream.GoogleMailStreamComponent;
+import org.apache.camel.component.google.mail.stream.GoogleMailStreamConfiguration;
 import org.apache.camel.spring.boot.CamelContextConfiguration;
 import org.cgoro.gmailarchiver.service.AuthenticationService;
 import org.slf4j.Logger;
@@ -22,9 +22,9 @@ public class CamelConfig {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Bean
-    GoogleMailComponent googleMail(AuthenticationService authenticationService) throws IOException {
-        try (GoogleMailComponent googleMailComponent = new GoogleMailComponent()) {
-            GoogleMailConfiguration config = new GoogleMailConfiguration();
+    GoogleMailStreamComponent googleMail(AuthenticationService authenticationService) throws IOException {
+        try (GoogleMailStreamComponent googleMailComponent = new GoogleMailStreamComponent()) {
+            GoogleMailStreamConfiguration config = new GoogleMailStreamConfiguration();
 
             NetHttpTransport httpTransport = getNetHttpTransport();
 
@@ -34,6 +34,8 @@ public class CamelConfig {
             config.setClientSecret(authenticationService.getSecrets().getDetails().getClientSecret());
             config.setAccessToken(credential.getAccessToken());
             config.setRefreshToken(credential.getRefreshToken());
+            config.setQuery("older_than:1y");
+            config.setMarkAsRead(false);
             googleMailComponent.setConfiguration(config);
             return googleMailComponent;
         }
@@ -51,11 +53,11 @@ public class CamelConfig {
     }
 
     @Bean
-    CamelContextConfiguration contextConfiguration(GoogleMailComponent googleMail) {
+    CamelContextConfiguration contextConfiguration(GoogleMailStreamComponent googleMail) {
         return new CamelContextConfiguration() {
             @Override
             public void beforeApplicationStart(CamelContext context) {
-                context.addComponent("google-mail", googleMail);
+                context.addComponent("google-mail-stream", googleMail);
             }
 
             @Override

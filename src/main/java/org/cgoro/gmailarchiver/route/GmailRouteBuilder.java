@@ -16,10 +16,15 @@ public class GmailRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        from("google-mail:messages/list?userId=" + userId + "&repeatCount=1")
-                .process(exchange -> exchange.getIn().setBody(exchange.getMessage().getBody(ListMessagesResponse.class).getMessages()))
+        from("google-mail-stream:messages/list")
+                /*.process(exchange -> {
+                    Object body = exchange.getIn().getBody();
+                    System.out.println(body);
+                })*/
+                .log("${headers.CamelGoogleMailStreamSubject}");
+                /*.process(exchange -> exchange.getIn().setBody(exchange.getMessage().getBody(ListMessagesResponse.class).getMessages()))
                 .split().body().transform(simple("${body.id}"))
-                .toD("google-mail:messages/get?userId="+ userId + "&id=${body}")
+                .toD("google-mail-stream:messages/get?userId="+ userId + "&id=${body}")
                 .process(exchange -> exchange.getMessage().getBody(Message.class)
                         .getPayload()
                         .getHeaders().stream()
@@ -29,6 +34,6 @@ public class GmailRouteBuilder extends RouteBuilder {
                                 messagePartHeader -> exchange.getIn().setBody("Subject: " + messagePartHeader.getValue()),
                                 () -> exchange.getIn().setBody("Subject: -No Subject-")
                         ))
-                .log("${body}");
+                .log("${body}");*/
     }
 }
