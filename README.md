@@ -10,7 +10,7 @@ The purpose of this application is to save Google Account space by downloading a
 * delete them from Gmail (explicit flag)
 
 ## Implementation details
-Camel integration and the Google mail component consists the core the application
+Camel integration and the Google mail component consist the core of the application
 
 ## References
 * https://developers.google.com/gmail/api/quickstart/js
