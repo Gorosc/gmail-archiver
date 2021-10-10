@@ -25,6 +25,7 @@ hs_err_pid*
 /tokens
 /.idea
 /.mvn
+/src/main/resources/credentials.json
 /src/main/resources/credentials-cgoros.json
 /target
 *.iml

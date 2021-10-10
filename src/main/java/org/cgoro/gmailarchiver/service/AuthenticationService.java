@@ -29,7 +29,7 @@ public class AuthenticationService {
      * Global instance of the scopes required by this quickstart.
      * If modifying these scopes, delete your previously saved tokens/ folder.
      */
-    private static final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_READONLY);
+    private static final List<String> SCOPES = Collections.singletonList(GmailScopes.MAIL_GOOGLE_COM);
 
     @Value("${gmail.archiver.credentials}")
     private String credentialsFilePath;
